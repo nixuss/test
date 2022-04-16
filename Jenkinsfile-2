@@ -9,6 +9,7 @@ properties([
 		])
 	])
 
+println params.myvar1
 
 pipeline {
     agent { 
