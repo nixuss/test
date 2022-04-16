@@ -9,13 +9,6 @@ properties([
 		])
 	])
 
-for (p in MYLIST) {
-    if (var1==p.key) {
-        var2=p.value
-	}
-}
-
-println var2
 
 pipeline {
     agent { 
