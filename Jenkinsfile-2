@@ -1,8 +1,9 @@
 #!/bin/env groovy
+
 // Check remote host properties
+//    disableConcurrentBuilds()
 
 properties([
-    disableConcurrentBuilds()
 
     parameters([
 	string(name: 'myvar1', description: 'Example of parameter', defaultValue: 'var1_value'),
