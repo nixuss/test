@@ -21,6 +21,13 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
     }
+
+    environment {
+	dockerImage = ''
+	registry = "nixuss/test:app"
+//	dockerHubCredential = '...'
+    }
+
     stages {
         stage("PREPARE") {
             steps {
@@ -35,12 +42,28 @@ pipeline {
 		}		
 	}
 
-        stage("Second step") {
+        stage("Info step") {
             steps {
                 sh 'pwd'
 		sh 'id'
 		sh 'ls'
             }
         }
+
+	stage("BUILD") {
+		steps {
+			script {
+			dockerImage = docker.build registry			
+			}	
+		}		
+	}
+
+        stage("CLEAN") {
+            steps {
+                sh 'echo Cleaning workspace'
+                cleanWs()
+            }
+        }
+
     }
 }
