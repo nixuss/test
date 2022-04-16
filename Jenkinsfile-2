@@ -1,11 +1,11 @@
-#!groovy
+#!/bin/env groovy
 // Check remote host properties
 //properties([disableConcurrentBuilds()])
 
-def myvar1 = ''
+def myvar = ''
 properties([
     parameters([
-	string(name: 'myvar1', description: 'Example of parameter', defaultValue: 'Ooooo')
+	string(name: 'myvar', description: 'Example of parameter', defaultValue: 'Ooooo')
 		])
 	])
 
