@@ -1,9 +1,6 @@
 #!groovy
 // Check remote host properties
-properties([
-disableConcurrentBuilds
-
-])
+properties([disableConcurrentBuilds])
 
 pipeline {
     agent { 
