@@ -4,7 +4,7 @@
 
 properties([
     parameters([
-	string(name: 'myvar1', description: 'Example of parameter', defaultValue: 'Ooooo')
+	string(name: 'myvar1', description: 'Example of parameter', defaultValue: 'Ooooo'),
 	string(name: 'myvar2', description: 'Example of parameter', defaultValue: '22222')
 		])
 	])
