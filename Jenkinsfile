@@ -11,9 +11,10 @@ pipeline {
         timestamps()
     }
     stages {
-        stage("First step") {
+        stage("PREPARE") {
             steps {
-                sh 'hostname -i'
+                sh 'echo Cleaning workspace'
+                cleanWs()
             }
         }
         stage("Second step") {
