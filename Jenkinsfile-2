@@ -1,6 +1,24 @@
 #!groovy
 // Check remote host properties
-properties([disableConcurrentBuilds])
+properties([disableConcurrentBuilds()])
+
+properties([
+    parameters([
+	string(
+            name: 'myvar1',
+	    description: 'Example of parameter',
+	    defaultValue: 'Ooooo'
+		  )
+		])
+	])
+
+for (p in MYLIST) {
+    if (var1==p.key) {
+        var2=p.value
+	}
+}
+
+println var2
 
 pipeline {
     agent { 
