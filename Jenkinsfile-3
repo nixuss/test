@@ -1,0 +1,78 @@
+#!/bin/env groovy
+
+// Check remote host properties
+
+properties([
+
+    parameters([
+	booleanParam(name: 'BUILD_STATUS', defaultValue: true, description: 'Make BUILD stage?'),
+	string(name: 'myvar1', description: 'Example', defaultValue: 'eee'),
+		])
+	])
+
+def var_example = params.myvar1
+
+pipeline {
+
+    agent { 
+        label 'dind'
+        }
+
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        disableConcurrentBuilds()
+        timestamps()
+    }
+
+    environment {
+	dockerImage = ''
+	REGISTRY = "nixuss/test:app"
+//	dockerHubCredential = '...'
+    }
+
+    stages {
+        stage("PREPARE") {
+            steps {
+                sh 'echo Cleaning workspace'
+                cleanWs()
+            }
+        }
+
+	stage("Git clone") {
+		steps {
+		git branch: 'branch2', changelog: 'false', credentialsId: 'jenkins-container-privkey', url: 'git@github.com:nixuss/test.git'		
+		}		
+	}
+
+        stage("Info step") {
+            steps {
+//	        script {def build_status = params.myvar1}
+                sh 'pwd'
+		sh 'id'
+		sh 'ls'
+		sh "echo ${var_example}"
+            }
+        }
+
+	stage("BUILD") {
+	    when {
+		expression {
+		    params.BUILD_STATUS == true              
+		}	            
+	    }
+	    steps {
+		script {
+		    dockerImage = docker.build REGISTRY	
+			}	
+		}		
+	}
+
+        stage("CLEAN") {
+            steps {
+                sh 'echo Cleaning workspace'
+                cleanWs()
+            }
+        }
+
+    }
+}
