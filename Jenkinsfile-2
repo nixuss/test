@@ -11,7 +11,7 @@ properties([
 		])
 	])
 
-println params.myvar1
+def build_status = params.myvar1
 println params.myvar1.getClass()
 
 pipeline {
@@ -25,7 +25,7 @@ pipeline {
 
     environment {
 	dockerImage = ''
-	registry = "nixuss/test:app"
+	REGISTRY = "nixuss/test:app"
 //	dockerHubCredential = '...'
     }
 
@@ -48,6 +48,8 @@ pipeline {
                 sh 'pwd'
 		sh 'id'
 		sh 'ls'
+		sh 'echo ${params.var1}'
+		sh 'echo ${build_status}'
             }
         }
 
@@ -59,7 +61,7 @@ pipeline {
 	    }
 	    steps {
 		script {
-		    dockerImage = docker.build registry			
+		    dockerImage = docker.build REGISTRY	
 			}	
 		}		
 	}
