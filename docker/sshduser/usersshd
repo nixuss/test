@@ -1,0 +1,13 @@
+FROM alpine:latest
+
+RUN apk update \
+    && apk add openssh openssh-server-pam runuser openssl bash \
+    && adduser -D jenkins \
+    && echo -e "jenk15pass2\njenk15pass2\n | openssl passwd -1 -stdin" | passwd jenkins 
+
+USER jenkins
+
+ADD script /tmp
+
+CMD bash /tmp/script
+
