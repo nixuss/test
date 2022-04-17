@@ -26,7 +26,6 @@ pipeline {
 	dockerImage = ''
 	REGISTRY = "nixuss/test:app"
 //	dockerHubCredential = '...'
-        build_status = params.myvar1
     }
 
     stages {
@@ -45,6 +44,7 @@ pipeline {
 
         stage("Info step") {
             steps {
+	        script {def build_status = params.myvar1}
                 sh 'pwd'
 		sh 'id'
 		sh 'ls'
