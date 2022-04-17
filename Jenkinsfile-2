@@ -55,7 +55,7 @@ pipeline {
 	stage("BUILD") {
 	    when {
 		expression {
-		    ${build_status} == 'make'              
+		    params.myvar1 == 'make'              
 		}	            
 	    }
 	    steps {
