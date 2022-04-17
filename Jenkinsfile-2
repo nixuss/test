@@ -11,8 +11,7 @@ properties([
 		])
 	])
 
-def build_status = params.myvar1
-println params.myvar1.getClass()
+//def build_status = params.myvar1
 
 pipeline {
     agent { 
@@ -27,6 +26,7 @@ pipeline {
 	dockerImage = ''
 	REGISTRY = "nixuss/test:app"
 //	dockerHubCredential = '...'
+        build_status = params.myvar1
     }
 
     stages {
