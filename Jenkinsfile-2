@@ -6,7 +6,7 @@
 properties([
 
     parameters([
-	string(name: 'myvar1', description: 'Example of parameter', defaultValue: 'var1_value'),
+	string(name: 'myvar1', description: 'Make BUILD stage?', defaultValue: 'make'),
 	string(name: 'myvar2', description: 'Example of parameter', defaultValue: '22222')
 		])
 	])
@@ -51,9 +51,14 @@ pipeline {
         }
 
 	stage("BUILD") {
-		steps {
-			script {
-			dockerImage = docker.build registry			
+	    when {
+		expression {
+		    params.var1 == 'make'              
+			}	            
+		}
+	    steps {
+		script {
+		    dockerImage = docker.build registry			
 			}	
 		}		
 	}
