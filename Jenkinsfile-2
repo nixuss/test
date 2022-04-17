@@ -48,7 +48,6 @@ pipeline {
                 sh 'pwd'
 		sh 'id'
 		sh 'ls'
-		sh 'echo ${params.var1}'
 		sh 'echo ${build_status}'
             }
         }
