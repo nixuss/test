@@ -12,6 +12,7 @@ properties([
 	])
 
 println params.myvar1
+println params.myvar1.getClass()
 
 pipeline {
     agent { 
