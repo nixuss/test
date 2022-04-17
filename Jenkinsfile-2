@@ -5,12 +5,12 @@
 properties([
 
     parameters([
-	string(name: 'myvar1', description: 'Make BUILD stage?', defaultValue: 'make'),
-	booleanParam(name: 'DEBUG_BUILD', defaultValue: true, description: 'Just example')
+	booleanParam(name: 'BUILD_STATUS', defaultValue: true, description: 'Make BUILD stage?'),
+	string(name: 'myvar1', description: 'Example', defaultValue: 'eee'),
 		])
 	])
 
-def build_status = params.myvar1
+def var_example = params.myvar1
 
 pipeline {
 
@@ -50,14 +50,14 @@ pipeline {
                 sh 'pwd'
 		sh 'id'
 		sh 'ls'
-		sh "echo ${build_status}"
+		sh "echo ${var_example}"
             }
         }
 
 	stage("BUILD") {
 	    when {
 		expression {
-		    params.myvar1 == 'make'              
+		    params.BUILD_STATUS == true              
 		}	            
 	    }
 	    steps {
