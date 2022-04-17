@@ -6,7 +6,7 @@ properties([
 
     parameters([
 	string(name: 'myvar1', description: 'Make BUILD stage?', defaultValue: 'make'),
-	string(name: 'myvar2', description: 'Example of parameter', defaultValue: '22222')
+	booleanParam(name: 'DEBUG_BUILD', defaultValue: true, description: 'Just example')
 		])
 	])
 
