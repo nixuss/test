@@ -44,7 +44,7 @@ pipeline {
 
         stage("Info step") {
             steps {
-	        script {def build_status = params.myvar1}
+//	        script {def build_status = params.myvar1}
                 sh 'pwd'
 		sh 'id'
 		sh 'ls'
