@@ -1,0 +1,56 @@
+#!groovy
+// Check my remote host properties
+properties([disableConcurrentBuilds()])
+
+pipeline {
+    agent { 
+        label 'agent1'
+        }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        timestamps()
+    }
+        
+    stages {
+        stage("Prepare") {
+            steps {
+                cleanWs()
+            }
+        } 
+        
+        stage("Git clone") {
+            steps {
+                git branch: 'main', changelog: 'false', credentialsId: '3ddeaee7-d723-4129-af5b-67a004cc26b6', url: 'git@github.com:ddx13/ansible-exam2.git'
+            }
+        }
+
+        stage("Preinstall") {
+            steps {
+                sh """
+                bash -x ./runme_first
+                """
+            }
+        }
+             
+        stage("Ansible") {
+            steps {
+                ansiblePlaybook credentialsId: 'clouduser', installation: 'ansible on agent1', inventory: 'inven', extras: '-v', playbook: 'main-pb.yml', vaultCredentialsId: 'ansible_vault'
+            }
+        }
+        
+        stage("Test") {
+            steps {
+                sh """
+                bash ./apptest.sh
+                """
+            }
+        }
+        stage("Clean") {
+            steps {
+                cleanWs()
+            }
+        } 
+        
+        
+    }
+}
