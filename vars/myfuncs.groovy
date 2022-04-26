@@ -1,5 +1,5 @@
 package vars
 
-def setCustomBuildId(
+def setCustomBuildId() {
     println 'It is msg from myfuncs'
-)
+}
