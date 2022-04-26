@@ -1,6 +1,9 @@
 package vars
 
-def setCustomBuildId() {
+def simpleHello() {
     println 'It is msg from myfuncs'
+}
+
+def setCustomBuildId() {
     buildName "#${env.BUILD_NUMBER}-${currentBuild.getBuildCauses()[0].userId}"
 }
