@@ -9,7 +9,7 @@ def setCustomBuildId0() {
 }
 
 def setCustomBuildId() {
-    if ("${currentBuild.getBuildCauses()[0].userId}") {
+    if ("${currentBuild.getBuildCauses()[0].userId}" != 'null') {
         buildName "#${env.BUILD_NUMBER}_${currentBuild.getBuildCauses()[0].userId}"
     }
 }
